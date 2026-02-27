@@ -20,9 +20,11 @@ from django.urls import path,include
 
 from django.conf import settings 
 from django.conf.urls.static import static 
+from coffeeapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('coffeeapp.urls')),
     # path('base',views.hello,name='base'),
+    # path('search/',views.search_coffee_item,name='search_coffee_item'), 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

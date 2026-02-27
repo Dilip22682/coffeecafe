@@ -1,0 +1,47 @@
+
+{% extends "html/base.html" %}
+{% load static %}
+{% block content %}
+{% block name %}
+               <a href="{% url 'coffee' %}" class="navbar-brand" style="color: aliceblue; font-size:large">Dilip coffee cafe</a>
+           {% endblock%}
+{% if results %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        {% for item in results %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% if item.coffee_img %}
+                <img src="{{ item.coffee_img.url }}" class="card-img-top" alt="{{ item.coffee_name }}" style="height: 220px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'images/no_image.png' %}" class="card-img-top" alt="No Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.coffee_name }}</h5>
+                    <p class="card-text">{{ item.coffee_description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-success w-10 fs-6">₹{{ item.coffee_price }}</span>
+                        <a href="{% url 'order' id=item.pk %}" class="btn btn-warning w-10 fw-bold shadow-sm">Order Now</a>
+                        <span class="text-muted">ID: {{ item.id }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<p class="text-center text-danger mt-4">No matching records found.</p>
+{% endif %}
+
+<div class="text-center mt-4">
+    <a href="{% url 'coffee' %}" class="btn btn-primary">Back to Coffee List</a>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
