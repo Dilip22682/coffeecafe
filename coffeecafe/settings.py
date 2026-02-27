@@ -37,7 +37,12 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 # ALLOWED_HOSTS = ['.onrender.com']
 # ALLOWED_HOSTS = ["127.0.0.1", "localhost", os.environ.get("RENDER_EXTERNAL_HOSTNAME", "")]
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", os.environ.get("RENDER_EXTERNAL_HOSTNAME", "")]
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost", os.environ.get("RENDER_EXTERNAL_HOSTNAME", "")]
+ALLOWED_HOSTS = [
+    "coffeecafe-1.onrender.com",
+    "127.0.0.1",
+    "localhost",
+]
 
 
 
@@ -66,6 +71,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'coffeecafe.urls'
+
 
 TEMPLATES = [
     {
@@ -102,6 +108,10 @@ else:
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+    
+CSRF_TRUSTED_ORIGINS = [
+    "https://coffeecafe-1.onrender.com",
+]    
 
 # DATABASES = {
 #     'default': {
