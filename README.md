@@ -53,64 +53,11 @@ coffeecafe/
 │
 ├── manage.py
 └── requirements.txt
-```
-
----
-
-## ⚙️ Installation
-
-1. Clone the repository
-
-```
-git clone https://github.com/yourusername/coffeecafe.git
-```
-
-2. Navigate to project folder
-
-```
-cd coffeecafe
-```
-
-3. Create virtual environment
-
-```
-python -m venv venv
-```
-
-4. Activate virtual environment
-
-Windows:
-
-```
-venv\Scripts\activate
-```
-
-5. Install dependencies
-
-```
-pip install -r requirements.txt
-```
-
-6. Run migrations
-
-```
-python manage.py migrate
-```
-
-7. Start server
-
-```
-python manage.py runserver
-```
-
----
 
 ## 🌐 Live Demo
 
 Deployed on Render:
 http://coffeecafe-1.onrender.com
-
----
 
 ## 👨‍💻 Author
 
@@ -119,8 +66,3 @@ http://coffeecafe-1.onrender.com
 * Python & Django Developer
 * Passionate about Web Development
 
----
-
-## ⭐ Contribute
-
-If you like this project, feel free to fork it and improve it.
