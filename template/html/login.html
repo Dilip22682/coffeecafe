@@ -1,0 +1,70 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+
+<style>
+    .login-wrapper {
+        min-height: 85vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #6f4e37, #c19a6b);
+        padding: 40px 0;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        background-color: white;
+    }
+
+    .login-title {
+        font-weight: bold;
+        color: #6f4e37;
+    }
+
+    .btn-coffee {
+        background-color: #6f4e37;
+        color: white;
+    }
+
+    .btn-coffee:hover {
+        background-color: #5a3d2b;
+        color: white;
+    }
+</style>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <h3 class="text-center mb-4 login-title">☕ Coffee Cafe Login</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="btn btn-coffee w-100">Login</button>
+        </form>
+
+        {% for message in messages %}
+            <div class="alert alert-danger mt-3 p-2 text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'html/base.html' %}
+ {% load static %}  
+ {% block content %}
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">☕ Your Bucket List</h2>
+
+  {% if cart_items %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>Coffee</th>
+          <th>Image</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for item in cart_items %} <
+        <tr>
+          <td>{{ item.coffee.coffee_name }}</td>
+
+          <td>
+            <img
+              src="{{ item.coffee.coffee_img.url }}"
+              width="80"
+              height="80"
+              class="rounded"
+            />
+          </td>
+
+          <td>
+            <span class="badge bg-primary fs-6"> {{ item.quantity }} </span>
+          </td>
+
+          <td>₹ {{ item.coffee.coffee_price }}</td>
+
+          <td class="fw-bold text-success">₹ {{ item.total_price }}</td>
+
+          <td>
+            <a
+              href="{% url 'remove_cart' item.id %}"
+              class="btn btn-danger btn-sm"
+            >
+              Remove
+            </a>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOTAL SECTION -->
+
+  <div class="row mt-4">
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          <h4 class="mb-3">Grand Total</h4>
+
+          <h3 class="text-success">₹ {{ total }}</h3>
+
+          <a href="{% url 'checkout' %}" class="btn btn-success mt-3 w-100">
+            Proceed to Checkout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+
+  <div class="text-center">
+    <h4>Your bucket list is empty 🛒</h4>
+
+    <a href="{% url 'coffee' %}" class="btn btn-primary mt-3">
+      Browse Coffee
+    </a>
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock %}

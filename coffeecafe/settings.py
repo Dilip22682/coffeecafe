@@ -44,7 +44,9 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
-
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "list_coffee"
+LOGOUT_REDIRECT_URL = "login"
 
 # Application definition
 

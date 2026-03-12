@@ -1,18 +1,90 @@
-{% extends "html/base.html" %}
- {% block content%}
+{% extends 'html/base.html' %}
 
+{% load static %}
 
-  <table method="post" style=" margin: auto; margin-top: 100px;">
-    <h1 style="color: red; text-align: center">Your orders:</h1>
-    <div class="card text-center mx-auto mt-5" style="width: 22rem;">
-          <div class="card-header">Payment Here</div>
-          <div class="card-body">  
-            <h5 class="card-title">Amount </h5>
-            <p class="card-text">{{ form.as_p }}</p>
-            <a href="#" class="btn btn-primary">Make Payment</a>
-          </div>
-    </div>
+{% block content %}
 
+<div class="container mt-5">
 
+<h2 class="text-center mb-4">📦 Your Orders</h2>
+
+{% for order in orders %}
+
+<div class="card shadow mb-4">
+
+<div class="card-header bg-dark text-white d-flex justify-content-between">
+
+<span>Order ID : <strong>#{{ order.id }}</strong></span>
+
+<span>Payment : {{ order.payment_method }}</span>
+
+<span>{{ order.created_at }}</span>
+
+</div>
+
+<div class="card-body">
+
+<table class="table table-bordered text-center align-middle">
+
+<thead class="table-warning">
+
+<tr>
+<th>Coffee</th>
+<th>Image</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Total</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in order.orderitem_set.all %}
+
+<tr>
+
+<td>{{ item.coffee.coffee_name }}</td>
+
+<td>
+
+<img src="{{ item.coffee.coffee_img.url }}"
+width="80"
+height="80"
+class="rounded">
+
+</td>
+
+<td>{{ item.quantity }}</td>
+
+<td>₹ {{ item.price }}</td>
+
+<td class="text-success fw-bold">
+₹ {{ item.total_price }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+<div class="text-end">
+
+<h5 class="text-success">
+Grand Total : ₹ {{ order.total_amount }}
+</h5>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
 
 {% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">💳 Checkout</h2>
+
+<div class="row">
+
+<!-- Order Summary -->
+
+<div class="col-md-8">
+
+<div class="card shadow">
+
+<div class="card-header bg-dark text-white">
+<h5 class="mb-0">Order Summary</h5>
+</div>
+
+<div class="card-body">
+
+<table class="table table-bordered text-center align-middle">
+
+<thead class="table-warning">
+
+<tr>
+<th>Coffee</th>
+<th>Image</th>
+<th>Quantity</th>
+<th>Price</th>
+<th>Total</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in cart_items %}
+
+<tr>
+
+<td>{{ item.coffee.coffee_name }}</td>
+
+<td>
+<img src="{{ item.coffee.coffee_img.url }}"
+width="70"
+height="70"
+class="rounded">
+</td>
+
+<td>{{ item.quantity }}</td>
+
+<td>₹ {{ item.coffee.coffee_price }}</td>
+
+<td class="fw-bold text-success">
+₹ {{ item.total_price }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Payment Section -->
+
+<div class="col-md-4">
+
+<div class="card shadow">
+
+<div class="card-header bg-success text-white">
+<h5 class="mb-0">Payment</h5>
+</div>
+
+<div class="card-body text-center">
+
+<h4 class="mb-3">Grand Total</h4>
+
+<h2 class="text-success">₹ {{ total }}</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="mb-3 text-start">
+
+<label class="form-label fw-bold">
+Select Payment Method
+</label>
+
+<select name="payment_method" class="form-control">
+
+<option value="COD">Cash On Delivery</option>
+
+<option value="UPI">UPI</option>
+
+<option value="CARD">Debit / Credit Card</option>
+
+</select>
+
+</div>
+
+<button type="submit" class="btn btn-success w-100 fw-bold">
+Place Order
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -2,9 +2,11 @@
 {% extends "html/base.html" %}
 {% load static %}
 {% block content %}
+
 {% block name %}
-               <a href="{% url 'coffee' %}" class="navbar-brand" style="color: aliceblue; font-size:large">Dilip coffee cafe</a>
-           {% endblock%}
+    <a href="{% url 'coffee' %}" class="navbar-brand" style="color: aliceblue; font-size:large">Dilip coffee cafe</a>
+{% endblock%}
+
 {% if results %}
 <div class="container mt-4">
     <div class="row justify-content-center">

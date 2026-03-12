@@ -1,0 +1,119 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center mt-5 pt-4">
+
+  <div class="row justify-content-center w-100">
+
+
+<!-- Smaller column -->
+<div class="col-lg-6 col-xl-5">
+
+  <!-- Card -->
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden mx-auto">
+
+    <div class="row g-0">
+
+      <!-- Left Panel -->
+      <div class="col-md-5 d-none d-md-flex align-items-center justify-content-center coffee-side">
+        <div class="text-white text-center px-3">
+          <h4 class="fw-bold mb-2">☕ CoffeeCafe</h4>
+          <p class="small mb-0">Join our coffee lovers community</p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="col-md-7">
+        <div class="card-body p-4">
+
+          <div class="text-center mb-3">
+            <h4 class="fw-bold text-gradient">Create Account</h4>
+            <p class="text-muted small">Register to start ordering coffee</p>
+          </div>
+
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-danger p-2">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" placeholder="Enter username">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" placeholder="Enter email">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" placeholder="Enter password">
+            </div>
+
+            <button type="submit" class="btn btn-coffee w-100 mb-2">
+              Register
+            </button>
+
+          </form>
+
+          <div class="text-center mt-2">
+            <small>Already have an account?</small><br>
+            <a href="{% url 'login' %}" class="btn btn-outline-coffee btn-sm mt-1">Login</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+  </div>
+
+</div>
+
+<style>
+
+.coffee-side{
+background: linear-gradient(135deg,#6f4e37,#c19a6b);
+}
+
+.text-gradient{
+background: linear-gradient(135deg,#6f4e37,#c19a6b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.btn-coffee{
+background:#6f4e37;
+color:white;
+}
+
+.btn-coffee:hover{
+background:#5a3d2b;
+color:white;
+}
+
+.btn-outline-coffee{
+border:2px solid #6f4e37;
+color:#6f4e37;
+}
+
+.btn-outline-coffee:hover{
+background:#6f4e37;
+color:white;
+}
+
+</style>
+
+{% endblock %}
