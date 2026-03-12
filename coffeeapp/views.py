@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from coffeeapp.forms import coffeeform
 from django.db.models import Q
 from django.contrib.auth.models import User
+from .models import Order
 
 
 from django.contrib.auth import authenticate, login, logout
@@ -61,8 +62,9 @@ def coffeeList(request):
     page_number=request.GET.get('pg')
     fm=paginator.get_page(page_number)
     return render(request,'html/coffee.html',{'fm':fm})
-from .models import Order
 
+
+@login_required
 def orders(request):
 
     user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
@@ -116,7 +118,7 @@ def cart_view(request):
     for item in cart_items:
         total += item.total_price()
 
-    return render(request,'html/cart.html',{
+    return render(request,'html/Cart.html',{
         'cart_items':cart_items,
         'total':total
     })
