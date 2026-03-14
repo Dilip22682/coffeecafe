@@ -23,7 +23,18 @@
                     <p class="card-text">{{ item.coffee_description }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="badge bg-success w-10 fs-6">₹{{ item.coffee_price }}</span>
-                        <a href="{% url 'order' id=item.pk %}" class="btn btn-warning w-10 fw-bold shadow-sm">Order Now</a>
+                        <!-- <a href="{% url 'order' id=item.pk %}" class="btn btn-warning w-10 fw-bold shadow-sm">Order Now</a> -->
+                        <div class="d-flex gap-2">
+                        
+                            <a href="{% url 'add_to_cart' id=item.id %}" class="btn btn-success btn-sm">
+                                🛒 Add
+                            </a>
+                        
+                            <!-- <a href="{% url 'order' id=item.id %}" class="btn btn-warning btn-sm">
+                                Order
+                            </a> -->
+                        
+                        </div>
                         <span class="text-muted">ID: {{ item.id }}</span>
                     </div>
                 </div>
