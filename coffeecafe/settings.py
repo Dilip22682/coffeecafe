@@ -189,3 +189,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # This is where uploaded files are
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")

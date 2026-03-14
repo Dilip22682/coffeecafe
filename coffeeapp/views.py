@@ -3,15 +3,15 @@ from coffeeapp.models import coffee_details,chai_details
 from django.core.paginator import Paginator
 from coffeeapp.forms import coffeeform
 from django.db.models import Q
+from django.db.models import Sum
 from django.contrib.auth.models import User
-from .models import Order
+from .models import coffee_details,Cart,Order,OrderItem
 
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
-from .models import coffee_details,Cart,Order,OrderItem
 # Create your views here.
 
 def login_view(request):
@@ -56,12 +56,33 @@ def register_user(request):
     return render(request,'html/register.html')
 
 
+# def coffeeList(request):
+#     fm=coffee_details.objects.all().order_by('id')
+#     paginator=Paginator(fm,8)
+#     page_number=request.GET.get('pg')
+#     fm=paginator.get_page(page_number)
+#     return render(request,'html/coffee.html',{'fm':fm})
+
 def coffeeList(request):
-    fm=coffee_details.objects.all().order_by('id')
-    paginator=Paginator(fm,8)
-    page_number=request.GET.get('pg')
-    fm=paginator.get_page(page_number)
-    return render(request,'html/coffee.html',{'fm':fm})
+
+    fm = coffee_details.objects.all().order_by('id')
+
+    paginator = Paginator(fm, 8)
+    page_number = request.GET.get('pg')
+    fm = paginator.get_page(page_number)
+
+    cart_count = 0
+    if request.user.is_authenticated:
+        cart_count = Cart.objects.filter(user=request.user).aggregate(
+            total=Sum('quantity')
+        )['total'] or 0
+
+    context = {
+        'fm': fm,
+        'cart_count': cart_count
+    }
+
+    return render(request, 'html/coffee.html', context)
 
 
 @login_required
@@ -106,23 +127,49 @@ def add_to_cart(request,id):
         cart_item.quantity += 1
         cart_item.save()
 
-    return redirect('cart')
+    return redirect('coffee')
 
 @login_required
 def cart_view(request):
 
+    # cart_items = Cart.objects.filter(user=request.user)
+
+    # total = 0
+    # cart_count=0
+
+    # for item in cart_items:
+    #     cart_count+=item
+    #     total += item.total_price()
+
+    # return render(request,'html/Cart.html',{'cart_items':cart_items,'total':total})
+
+
+
     cart_items = Cart.objects.filter(user=request.user)
 
-    total = 0
+    cart_count = 0
+    total_price = 0
 
     for item in cart_items:
-        total += item.total_price()
+        cart_count += item.quantity
+        total_price += item.quantity * item.coffee.coffee_price
 
-    return render(request,'html/Cart.html',{
-        'cart_items':cart_items,
-        'total':total
-    })
-    
+    context = {
+        "cart_items": cart_items,
+        "cart_count": cart_count,
+        "total_price": total_price
+    }
+
+    return render(request, "html/cart.html", context)
+   
+
+def cart_count(request):
+    if request.user.is_authenticated:
+        count = Cart.objects.filter(user=request.user).count()
+    else:
+        count = 0
+
+    return {"cart_count": count}    
     
 
 def checkout(request):
@@ -138,8 +185,7 @@ def checkout(request):
         order = Order.objects.create(
             user=request.user,
             payment_method=payment,
-            total_amount=total
-        )
+            total_amount=total)
 
         for item in cart_items:
 

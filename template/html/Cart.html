@@ -30,8 +30,7 @@
               src="{{ item.coffee.coffee_img.url }}"
               width="80"
               height="80"
-              class="rounded"
-            />
+              class="rounded"/>
           </td>
 
           <td>
@@ -45,10 +44,7 @@
           <td>
             <a
               href="{% url 'remove_cart' item.id %}"
-              class="btn btn-danger btn-sm"
-            >
-              Remove
-            </a>
+              class="btn btn-danger btn-sm">Remove</a>
           </td>
         </tr>
 
@@ -66,8 +62,7 @@
       <div class="card shadow">
         <div class="card-body text-center">
           <h4 class="mb-3">Grand Total</h4>
-
-          <h3 class="text-success">₹ {{ total }}</h3>
+          <h3 class="text-success">₹ {{ total_price }}</h3>
 
           <a href="{% url 'checkout' %}" class="btn btn-success mt-3 w-100">
             Proceed to Checkout

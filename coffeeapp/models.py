@@ -25,6 +25,7 @@ class Cart(models.Model):
 
     def total_price(self):
         return self.quantity * self.coffee.coffee_price
+    
 
 class Order(models.Model):
     PAYMENT_CHOICES = (
@@ -41,6 +42,22 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id}"
 
+ 
+
+# class Order(models.Model): 
+
+#     user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+#     total_price= models.IntegerField()
+
+#     razorpay_order_id = models.CharField(max_length=100)
+
+#     razorpay_payment_id = models.CharField(max_length=100,null=True,blank=True)
+
+#     paid = models.BooleanField(default=False)
+
+#     created_at = models.DateTimeField(auto_now_add=True)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
@@ -49,5 +66,5 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=6,decimal_places=2)
 
     def total_price(self):
-        return self.quantity * self.price    
+        return self.quantity * self.price
     
